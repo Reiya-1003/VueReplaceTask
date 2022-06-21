@@ -1,0 +1,205 @@
+<template>
+  <div style="height: 600px">
+    <div>ここがタスク編集</div>
+    <span>緊急Picked: {{ Urgencypicked}}</span>
+    <span>重要picked: {{picked}}</span>
+    <span>{{ this.$route.params.id }}</span>
+    <span>{{getEachIdTask}}</span>
+    <span>{{inputUrgency}}</span>
+
+
+  
+
+    <div class="listbox">
+      <div class="listitem">
+        <span class="itemtitle">内容</span
+        ><span class="item"><input type="text" class="textinput"  v-model="inputValue" /></span>
+      </div>
+      <div class="listradioitem">
+        <span class="itemtitle">緊急度</span>
+        <span class="item">
+          <input type="radio" id="one" value=1 name="Urgency" class="radioinput" v-model="inputUrgency" /><label
+            for="one"
+            >1</label>
+          <input type="radio" id="two" value=2 name="Urgency" class="radioinput" v-model="inputUrgency" /><label
+            for="two"
+            >2</label>
+            <input type="radio" id="three" value=3 name="Urgency" class="radioinput" v-model="inputUrgency" /><label
+            for="three"
+            >3</label>
+            <input type="radio" id="four" value=4 name="Urgency" class="radioinput" v-model="inputUrgency" /><label
+            for="four"
+            >4</label>
+            <input type="radio" id="five" value=5 name="Urgency" class="radioinput" v-model="inputUrgency" /><label
+            for="five"
+            >5</label>
+         
+        </span>
+      </div>
+      <div class="listradioitem">
+        <span class="itemtitle">重要度</span>
+        <span class="item">
+          <input type="radio" id="imone" value=1 name="importance" class="radioinput" v-model="inputImpotance"/><label
+            for="imone"
+            >1</label>
+          <input type="radio" id="imtwo" value=2 name="importance" class="radioinput" v-model="inputImpotance"/><label
+            for="imtwo"
+            >2</label>
+            <input type="radio" id="imthree" value=3 name="importance" class="radioinput" v-model="inputImpotance"/><label
+            for="imthree"
+            >3</label>
+            <input type="radio" id="imfour" value=4 name="importance" class="radioinput" v-model="inputImpotance"/><label
+            for="imfour"
+            >4</label>
+            <input type="radio" id="imfive" value=5 name="importance" class="radioinput" v-model="inputImpotance"/><label
+            for="imfive"
+            >5</label>
+         
+        </span>
+      </div>
+      <div class="listitem">
+        <span class="itemtitle">期日</span
+        ><span class="item"><input type="date" class="dateinput" v-model="inputDay" /></span>
+      </div>
+      </div>
+    <div class="listbutton">
+      <b-button variant="primary" style=" width: 10%; padding: 10px;" @click="updateTask">登録</b-button>
+    
+    </div>
+  </div>
+</template>
+
+<script>
+import {mapState,mapGetters,mapMutations} from 'vuex'
+export default {
+  name: "PageEdit",
+  data(){
+    return{
+      Urgencypicked:3,
+      picked:3
+    }
+  },
+  
+  computed:{
+...mapState(["Tasks", "newTask",'newUrgency','newImpotance','newDay']),
+...mapGetters([
+      'getEachIdTask',
+        ]),
+  inputValue: {
+      get() {
+        return this.getEachIdTask[0].name;
+      },
+      set(value) {
+        this.input(value);
+      }
+  },
+  //ifで変えてないとき変えてない値を返す処理
+  inputUrgency:{
+    get() {
+        return this.getEachIdTask[0].urgency;
+      },
+      set(value) {
+        this.inputurgency(value);
+      }
+  },
+  inputImpotance:{
+     get() {
+        return this.getEachIdTask[0].impotance;
+      },
+      set(value) {
+        this.inputimportance(value);
+      }
+  },
+  inputDay:{
+     get() {
+        return this.getEachIdTask[0].day;
+      },
+      set(value) {
+        this.inputday(value);
+      }
+  }
+
+  },
+   methods: {
+    ...mapMutations(["input","inputurgency", "inputimportance","inputday","updateTask", "removeTodo"]),
+  
+  },
+
+
+  created() {
+    console.log(this.$store.state)
+    console.log(this.$store.getters)
+
+  },
+};
+
+</script>
+
+<style lang="scss" type="text/css">
+.listbox {
+  margin: 3px auto;
+  height: 400px;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+
+  .listitem {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    margin-top: 5%;
+    background-color: lightgray;
+    text-align: center;
+    .itemtitle {
+      margin-left: 5%;
+      font-size: large;
+    }
+    .item {
+      width: 80%;
+      display: flex;
+      justify-content: center;
+      margin-left: 5%;
+      .textinput {
+        width: 60%;
+        height: 25px;
+      }
+      .dateinput {
+        width: 60%;
+        height: 25px;
+      }
+      .radioinput{
+        display: none;
+        
+      }
+      
+
+label:hover {
+background-color: #E2EDF9; /* マウスオーバー時の背景色を指定する */
+}
+label {
+    display: block;
+    float: left;
+    margin: 5px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    color: gray;
+    cursor: pointer;
+    border: 2px solid;
+    border-radius: 50%;
+    font-size: 17px;
+    margin-left: 30px;
+    margin-right: 30px;
+    
+}
+:checked + label {
+  color: #ffffff;
+}
+
+
+      
+      
+    }
+  }
+}
+</style>

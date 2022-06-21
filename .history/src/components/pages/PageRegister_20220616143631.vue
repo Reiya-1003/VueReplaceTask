@@ -1,0 +1,29 @@
+<template>
+<div>
+  <div >ここがタスク登録</div>
+
+  <div class="listbox">
+    <div class="listitem">内容</div>
+    <div class="listitem">緊急度</div>
+    <div class="listitem">重要度</div>
+    <div class="listitem">期日</div>
+  </div>
+
+</div>
+</template>
+
+<script>
+export default {
+  name: "PageRegister",
+};
+</script>
+
+<style lang="scss" type="text/css">
+.listbox{
+  display: flex;
+  .listitem{
+    background-color: aqua;
+  }
+}
+
+</style>
